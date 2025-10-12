@@ -1,69 +1,40 @@
-# LegalClaro 📜⚖️
+# LegalClaro 📜⚖️ — La Extensión
 
-Una extensión de Chrome que simplifica textos legales complejos usando IA (Google Gemini).
+Bienvenido al frontend de **LegalClaro**, una extensión de Chrome que traduce la jerga legal incomprensible a un lenguaje claro y directo, utilizando el poder de la IA.
 
-## � Repositorios
+Este repositorio contiene el código de la extensión de Chrome que los usuarios instalan en su navegador.
 
-Este proyecto está dividido en dos repositorios:
+* **Backend (La API Serverless):** El cerebro de la operación reside en un [repositorio separado](https://github.com/diegogalmarini/legalclaro-backend).
 
-- **Frontend (Extensión)**: Este repositorio - [LegalClaro](https://github.com/diegogalmarini/LegalClaro)
-- **Backend (Serverless)**: [legalclaro-backend](https://github.com/diegogalmarini/legalclaro-backend)
+---
 
-## �🚀 Características
+## 🎯 Filosofía del Proyecto: El Manifiesto #ElRetoMVP
 
-- **Análisis instantáneo**: Selecciona cualquier texto legal en una página web y obtén un análisis simplificado
-- **Resumen inteligente**: Obtén el punto clave del documento en una frase
-- **Puntos principales**: Lista clara de las cláusulas más importantes
-- **Nivel de alerta**: Evaluación del riesgo del documento (Bajo, Medio, Alto)
+Este proyecto es la primera ejecución del reto público **#ElRetoMVP**. Nace de la filosofía **"Demostrar, No Solo Decir"**: la convicción de que la mejor manera de probar una capacidad es construyendo y entregando resultados tangibles.
 
-## 📁 Estructura del Proyecto
+LegalClaro fue concebido, construido y desplegado en un sprint de una semana para demostrar cómo se puede pasar de un 'dolor de mercado' a una solución funcional a gran velocidad, transformando una idea en un activo real.
 
-**Nota**: El backend está en un [repositorio separado](https://github.com/diegogalmarini/legalclaro-backend).
+### ✨ Estado Actual del Sprint
 
-```
-LegalClaro/
-└── LegalClaro-extension/     # Extensión de Chrome
-    ├── manifest.json
-    ├── popup/
-    │   ├── popup.html
-    │   ├── popup.css
-    │   └── popup.js
-    └── icons/
-        ├── icon16.png
-        ├── icon48.png
-        └── icon128.png
-```
-    ├── vercel.json
-    └── .env.example
-```
+* **Fase:** 2 de 3 (Ejecución)
+* **Backend:** ✅ Desplegado y 100% funcional en Vercel.
+* **Frontend:** ✅ Estructura base completada y lista para conectar.
 
-## 🛠️ Instalación
+---
 
-### 1. Backend (Vercel) ✅ COMPLETADO
+## 🚀 Cómo Ponerlo en Marcha (Instalación en 2 minutos)
 
-El backend ya está desplegado y funcionando:
-- **URL**: https://legalclaro.vercel.app
-- **Endpoint**: https://legalclaro.vercel.app/api/simplify
-- **IA**: Google Gemini 2.0 Flash
+El backend ya está operativo. Para activar la extensión en tu navegador, sigue estos pasos:
 
-### 2. Extensión de Chrome
+1.  **Descarga el Código:** Clona o descarga este repositorio en tu ordenador.
+2.  **Abre Chrome Extensions:** Ve a la dirección `chrome://extensions/`.
+3.  **Activa el Modo Desarrollador:** Activa el interruptor en la esquina superior derecha.
+4.  **Carga la Extensión:**
+    * Haz clic en **"Cargar extensión sin empaquetar"**.
+    * Selecciona la carpeta `LegalClaro-extension` de este repositorio.
+5.  **¡Listo!** El icono de LegalClaro aparecerá en tu barra de herramientas, listo para usar.
 
-#### Paso 1: Crear los Iconos (Requerido)
-Agrega tres iconos PNG en la carpeta `LegalClaro-extension/icons/`:
-- `icon16.png` (16x16 px)
-- `icon48.png` (48x48 px)
-- `icon128.png` (128x128 px)
-
-**Sugerencia**: Usa un emoji ⚖️ o 📜 y conviértelo a PNG usando:
-- https://favicon.io/favicon-generator/
-- https://www.canva.com/
-
-#### Paso 2: Cargar la Extensión en Chrome
-1. Abre Chrome y ve a `chrome://extensions/`
-2. Activa el **"Modo de desarrollador"** (esquina superior derecha)
-3. Haz clic en **"Cargar extensión sin empaquetar"**
-4. Selecciona la carpeta `LegalClaro-extension`
-5. ¡La extensión está lista para usar!
+*(**Nota:** Asegúrate de que la carpeta `LegalClaro-extension/icons/` contiene los tres archivos de icono necesarios: `icon16.png`, `icon48.png`, `icon128.png`)*
 
 ## 📖 Guía de Uso Rápido
 
