@@ -103,7 +103,7 @@ Agrega tres iconos PNG en la carpeta `LegalClaro-extension/icons/`:
 
 ## 👨‍💻 Autor
 
-Desarrollado por Diego
+Desarrollado por Diego Galmarini | https://www.linkedin.com/in/diegogalmarini/
 
 ## 📄 Licencia
 
