@@ -2,8 +2,8 @@
 const resultDiv = document.getElementById('result');
 const spinnerDiv = document.getElementById('spinner');
 
-// URL del backend (actualizar con tu URL de Vercel)
-const API_URL = 'https://legal-claro.vercel.app/api/simplify';
+// URL del backend en Vercel
+const API_URL = 'https://legalclaro.vercel.app/api/simplify';
 
 // Función para obtener el texto seleccionado
 async function getSelectedText() {
