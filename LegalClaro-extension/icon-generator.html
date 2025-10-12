@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Icon Generator</title>
+</head>
+<body>
+    <canvas id="canvas16" width="16" height="16" style="border:1px solid #ccc; margin:5px;"></canvas>
+    <canvas id="canvas48" width="48" height="48" style="border:1px solid #ccc; margin:5px;"></canvas>
+    <canvas id="canvas128" width="128" height="128" style="border:1px solid #ccc; margin:5px;"></canvas>
+    <div>
+        <a id="download16" download="icon16.png">Download 16x16</a><br>
+        <a id="download48" download="icon48.png">Download 48x48</a><br>
+        <a id="download128" download="icon128.png">Download 128x128</a>
+    </div>
+
+<script>
+function createIcon(canvasId, size, downloadId) {
+    const canvas = document.getElementById(canvasId);
+    const ctx = canvas.getContext('2d');
+    
+    // Background gradient
+    const gradient = ctx.createLinearGradient(0, 0, size, size);
+    gradient.addColorStop(0, '#667eea');
+    gradient.addColorStop(1, '#764ba2');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, size, size);
+    
+    // Scale emoji based on canvas size
+    const fontSize = Math.floor(size * 0.7);
+    ctx.font = `${fontSize}px Arial`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    
+    // Draw scale emoji
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText('⚖️', size/2, size/2);
+    
+    // Set download link
+    canvas.toBlob(function(blob) {
+        const url = URL.createObjectURL(blob);
+        document.getElementById(downloadId).href = url;
+    });
+}
+
+createIcon('canvas16', 16, 'download16');
+createIcon('canvas48', 48, 'download48');
+createIcon('canvas128', 128, 'download128');
+</script>
+</body>
+</html>
