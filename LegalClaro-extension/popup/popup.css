@@ -1,0 +1,161 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  width: 400px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #333;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  background: white;
+  border-radius: 8px;
+  margin: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px 8px 0 0;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+  min-height: 200px;
+}
+
+.result {
+  line-height: 1.6;
+  color: #444;
+}
+
+.initial-message {
+  color: #999;
+  font-style: italic;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.selected-text {
+  background: #f7f7f7;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 12px;
+  color: #666;
+  border-left: 3px solid #667eea;
+}
+
+.simplified-text {
+  font-size: 14px;
+}
+
+.simplified-text h3 {
+  color: #667eea;
+  margin-top: 15px;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.simplified-text ul {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.simplified-text li {
+  margin-bottom: 5px;
+}
+
+.alert-level {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: 8px;
+}
+
+.alert-bajo {
+  background: #d4edda;
+  color: #155724;
+}
+
+.alert-medio {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.alert-alto {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.spinner-icon {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner p {
+  margin-top: 15px;
+  color: #667eea;
+  font-weight: 500;
+}
+
+.hidden {
+  display: none !important;
+}
+
+footer {
+  background: #f7f7f7;
+  padding: 12px;
+  text-align: center;
+  border-radius: 0 0 8px 8px;
+  border-top: 1px solid #eee;
+}
+
+footer p {
+  font-size: 12px;
+  color: #666;
+}
+
+.error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 4px;
+  border-left: 3px solid #f5c6cb;
+}
