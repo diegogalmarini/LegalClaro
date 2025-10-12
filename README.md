@@ -80,6 +80,18 @@ Agrega tres iconos PNG en la carpeta `LegalClaro-extension/icons/`:
 - **IA**: Google Gemini API
 - **Hosting**: Vercel
 
+## 🎯 Filosofía del Proyecto
+
+Este proyecto es la primera ejecución del reto público **#ElRetoMVP**. Nace de la filosofía **"Demostrar, No Solo Decir"**: la convicción de que la mejor manera de probar una capacidad es construyendo y entregando resultados tangibles.
+
+LegalClaro fue concebido, construido y desplegado en un sprint de una semana para demostrar cómo se puede pasar de un 'dolor de mercado' a una solución funcional a gran velocidad.
+
+## ✨ Estado Actual
+
+**Fase:** 2 de 3 (Ejecución)
+**Backend:** ✅ Desplegado y funcional en Vercel.
+**Frontend:** 🚧 En desarrollo activo.
+
 ## 📝 Notas de Desarrollo
 
 - La extensión usa Manifest V3 (la última versión de Chrome Extensions)
