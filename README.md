@@ -39,62 +39,31 @@ LegalClaro/
 
 ## 🛠️ Instalación
 
-### 1. Backend (Vercel)
+### 1. Backend (Vercel) ✅ COMPLETADO
 
-1. Ve a la carpeta `vercel-backend`:
-   ```bash
-   cd vercel-backend
-   ```
-
-2. Instala las dependencias:
-   ```bash
-   npm install
-   ```
-
-3. Crea un archivo `.env` basado en `.env.example`:
-   ```bash
-   cp .env.example .env
-   ```
-
-4. Obtén tu API key de Google Gemini:
-   - Ve a [Google AI Studio](https://makersuite.google.com/app/apikey)
-   - Crea una nueva API key
-   - Cópiala en el archivo `.env`
-
-5. Instala Vercel CLI (si no lo tienes):
-   ```bash
-   npm install -g vercel
-   ```
-
-6. Despliega a Vercel:
-   ```bash
-   vercel
-   ```
-
-7. En el dashboard de Vercel, agrega la variable de entorno:
-   - Ve a tu proyecto → Settings → Environment Variables
-   - Agrega `GEMINI_API_KEY` con tu API key
-
-8. Copia la URL de tu deployment (ej: `https://tu-proyecto.vercel.app`)
+El backend ya está desplegado y funcionando:
+- **URL**: https://legalclaro.vercel.app
+- **Endpoint**: https://legalclaro.vercel.app/api/simplify
+- **IA**: Google Gemini 2.0 Flash
 
 ### 2. Extensión de Chrome
 
-1. Abre `LegalClaro-extension/popup/popup.js`
+#### Paso 1: Crear los Iconos (Requerido)
+Agrega tres iconos PNG en la carpeta `LegalClaro-extension/icons/`:
+- `icon16.png` (16x16 px)
+- `icon48.png` (48x48 px)
+- `icon128.png` (128x128 px)
 
-2. Actualiza la variable `API_URL` con tu URL de Vercel:
-   ```javascript
-   const API_URL = 'https://tu-proyecto.vercel.app/api/simplify';
-   ```
+**Sugerencia**: Usa un emoji ⚖️ o 📜 y conviértelo a PNG usando:
+- https://favicon.io/favicon-generator/
+- https://www.canva.com/
 
-3. Carga la extensión en Chrome:
-   - Abre Chrome y ve a `chrome://extensions/`
-   - Activa el "Modo de desarrollador"
-   - Haz clic en "Cargar extensión sin empaquetar"
-   - Selecciona la carpeta `LegalClaro-extension`
-
-4. **Importante**: Agrega iconos a la carpeta `icons/`:
-   - Necesitas crear o agregar tres iconos: `icon16.png`, `icon48.png`, `icon128.png`
-   - Puedes usar cualquier editor de imágenes o generarlos online
+#### Paso 2: Cargar la Extensión en Chrome
+1. Abre Chrome y ve a `chrome://extensions/`
+2. Activa el **"Modo de desarrollador"** (esquina superior derecha)
+3. Haz clic en **"Cargar extensión sin empaquetar"**
+4. Selecciona la carpeta `LegalClaro-extension`
+5. ¡La extensión está lista para usar!
 
 ## 📖 Uso
 
