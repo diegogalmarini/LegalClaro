@@ -1,14 +1,22 @@
 {
   "manifest_version": 3,
   "name": "LegalClaro",
-  "version": "1.0",
-  "description": "Simplifica textos legales complejos usando IA.",
+  "version": "1.0.0",
+  "description": "Simplifica textos legales complejos usando IA. Obtén análisis claros de contratos y documentos al instante.",
+  "short_name": "LegalClaro",
+  "author": "Diego Galmarini",
+  "homepage_url": "https://github.com/diegogalmarini/LegalClaro",
+  "privacy_policy": "https://legalclaro.vercel.app/privacy.html",
   "permissions": [
     "activeTab",
     "scripting"
   ],
+  "host_permissions": [
+    "https://legalclaro.vercel.app/*"
+  ],
   "action": {
     "default_popup": "popup/popup.html",
+    "default_title": "LegalClaro - Analizar texto legal",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
@@ -19,5 +27,13 @@
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
-  }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "minimum_chrome_version": "88",
+  "offline_enabled": false
 }
