@@ -1,5 +1,4 @@
-# Backend (repositorio separado)
-vercel-backend/
+# Backend: ahora se versiona junto al repo (antes estaba separado)
 
 # Node modules
 node_modules/
