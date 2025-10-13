@@ -6,7 +6,6 @@
   "short_name": "LegalClaro",
   "author": "Diego Galmarini",
   "homepage_url": "https://github.com/diegogalmarini/LegalClaro",
-  "privacy_policy": "https://legalclaro.vercel.app/privacy.html",
   "permissions": [
     "activeTab",
     "scripting"
