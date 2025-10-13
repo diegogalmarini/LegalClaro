@@ -1,0 +1,16 @@
+{
+  "name": "legalclaro-backend",
+  "version": "1.0.0",
+  "description": "Backend serverless para LegalClaro - Simplifica textos legales usando IA",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1"
+  },
+  "devDependencies": {
+    "vercel": "^37.0.0"
+  }
+}

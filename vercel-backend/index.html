@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LegalClaro</title>
+  <!-- deploy-note: privacy modal added on 2025-10-13 -->
+    <style>
+      :root {
+        --primary: #1f2a55; /* azul */
+        --primary-dark: #0b1539; /* azul profundo */
+        --gold: #bc7f27; /* dorado solicitado */
+        --bg: #f4f6fb; /* fondo claro */
+        --text: #1f2330;
+        --muted: #6b7280;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu;
+        background: var(--bg);
+        color: var(--text);
+        background-color: #dededf;
+      }
+      header {
+        background: linear-gradient(140deg, var(--primary-dark) 0%, var(--primary) 100%);
+        color: #fff;
+        padding: 28px 16px 22px;
+        text-align: center;
+        box-shadow: 0 2px 16px rgba(26,35,64,0.08);
+      }
+      h1 { margin:0; font-size:26px; letter-spacing: .3px; font-weight: 700; }
+      .subtitle { margin-top:6px; color: rgba(255,255,255,.92); font-weight:500; }
+      .brand { display:inline-flex; align-items:center; gap:10px; color:#fff; }
+      .brand .icon { color: var(--gold); }
+      main { max-width: 880px; margin: 24px auto; padding: 0 16px; }
+  .card { background:#fff; border:1px solid #e6e8ef; border-radius:14px; padding:18px; box-shadow: 0 6px 28px rgba(0,0,0,.05); }
+      label { display:block; font-weight:600; margin-bottom:8px; }
+      textarea { width:100%; min-height:160px; resize:vertical; padding:12px; border:1px solid #d1d5db; border-radius:8px; font:inherit; }
+  button {
+    background: linear-gradient(180deg, #3b4b8f 0%, #1a2450 100%);
+    color: #fff;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 14px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: .2px;
+    box-shadow:
+      0 8px 20px rgba(31,42,85,.22),
+      0 2px 4px rgba(0,0,0,.08),
+      inset 0 1px 0 rgba(255,255,255,.15);
+    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease, background .2s ease;
+  }
+  button:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.03);
+    box-shadow:
+      0 12px 28px rgba(31,42,85,.32),
+      0 6px 12px rgba(0,0,0,.12),
+      inset 0 1px 0 rgba(255,255,255,.2);
+  }
+  button:active {
+    transform: translateY(0);
+    filter: brightness(.98);
+    box-shadow:
+      0 4px 12px rgba(31,42,85,.2),
+      0 2px 6px rgba(0,0,0,.1),
+      inset 0 1px 0 rgba(255,255,255,.1);
+  }
+  button:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 3px rgba(49,64,122,.25),
+      0 8px 20px rgba(31,42,85,.25);
+  }
+      button[disabled] { opacity:.6; cursor:not-allowed; }
+      .row { display:flex; gap:16px; align-items:flex-start; }
+      .row.status-row {
+        align-items: center;
+        justify-content: space-between;
+      }
+      .grow { flex:1; }
+  .result { background:#fafafa; border:1px solid #eee; border-radius:10px; padding:14px; min-height:140px; }
+  .result ul { margin: 8px 0 8px 20px; }
+  .result ol { margin: 8px 0 8px 22px; }
+  .result p { margin: 8px 0; }
+      .muted {
+        color: var(--muted);
+        font-size: 14px;
+      }
+      footer {
+        text-align: center;
+        color: #9ca3af;
+        font-size: 12px;
+        padding: 24px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+      .footer-link {
+        color: #bc7f27;
+        text-decoration: underline;
+        cursor: pointer;
+        margin-left: 8px;
+      }
+      .footer-link:hover {
+        text-decoration: none;
+        color: #a86a1c;
+      }
+      .privacy-modal-bg {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.25);
+        z-index: 1100;
+        align-items: center;
+        justify-content: center;
+      }
+      .privacy-modal-bg.active { display: flex; }
+      .privacy-modal {
+        background: #fff;
+        border-radius: 10px;
+        padding: 24px 20px;
+        max-width: 600px;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        color: #232323;
+        font-size: 15px;
+        position: relative;
+      }
+      .privacy-modal .close {
+        position: absolute;
+        top: 8px;
+        right: 12px;
+        font-size: 22px;
+        color: #888;
+        cursor: pointer;
+      }
+      .social-buttons {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+      }
+      .social-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        background: #ffffff;
+        border: 1px solid #e6e8ef;
+        border-radius: 12px;
+        text-decoration: none;
+        color: var(--primary);
+        box-shadow: 0 6px 18px rgba(0,0,0,.08);
+        transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+      }
+      .social-btn:hover {
+        transform: translateY(-2px);
+        background: linear-gradient(180deg, #ffffff 0%, #f7f9ff 100%);
+        border-color: #d7dbe6;
+        box-shadow: 0 10px 24px rgba(0,0,0,.12);
+      }
+      .social-btn:active {
+        transform: translateY(0);
+      }
+      .social-btn:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(49,64,122,.2), 0 6px 18px rgba(0,0,0,.1);
+      }
+      .social-btn svg {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+      }
+      .info-icon { display:inline-block; width: 18px; height: 18px; margin-left: 6px; vertical-align: middle; cursor: pointer; }
+      .modal-bg {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.25);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal-bg.active { display: flex; }
+      .modal {
+        background: #fff;
+        border-radius: 10px;
+        padding: 24px 20px;
+        max-width: 340px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        color: #232323;
+        font-size: 15px;
+        position: relative;
+      }
+      .modal .close {
+        position: absolute;
+        top: 8px;
+        right: 12px;
+        font-size: 18px;
+        color: #888;
+        cursor: pointer;
+      }
+      #status {
+        margin-top: 10px;
+        color: #3b3b3b;
+        font-size: 14px;
+        text-align: right;
+        flex: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <span class="icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        </span>
+        <h1>LegalClaro</h1>
+      </div>
+      <p class="subtitle">Simplifica textos legales en segundos</p>
+    </header>
+    <main>
+      <div class="card">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <label for="text" style="margin-bottom:0;">Texto legal a analizar</label>
+          <span class="info-icon" id="infoBtn" title="Más información">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="#bc7f27" stroke-width="2"/>
+              <line x1="12" y1="10" x2="12" y2="16" stroke="#bc7f27" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="12" cy="7" r="1.5" fill="#bc7f27"/>
+            </svg>
+          </span>
+        </div>
+  <textarea id="text" placeholder="Comparte tu texto legal y obtén una explicación al instante."></textarea>
+        <div class="row status-row" style="margin-top:12px;">
+          <button id="send">Analizar con IA</button>
+          <div id="status" class="muted">Estado: listo</div>
+        </div>
+        <div style="margin-top:16px;" class="row">
+          <div class="grow">
+            <label>Resultado</label>
+            <div id="output" class="result">Esperando solicitud...</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-bg" id="modalBg">
+        <div class="modal">
+          <span class="close" id="closeModal">&times;</span>
+          <b>Información:</b>
+          <p>El texto que cargues puede estar en cualquier idioma y el resultado será siempre en español. Utilizamos IA para simplificar y traducir textos legales complejos.</p>
+        </div>
+      </div>
+    </main>
+    <footer>
+  <div>© LegalClaro 2025 by Diego Galmarini | <span class="footer-link" id="privacyLink">Política de privacidad</span></div>
+      <div class="social-buttons">
+        <a href="https://www.linkedin.com/in/diegogalmarini/" target="_blank" class="social-btn" title="LinkedIn - Diego Galmarini">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+        <a href="https://github.com/diegogalmarini/LegalClaro" target="_blank" class="social-btn" title="GitHub - Repositorio LegalClaro">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+      <div class="privacy-modal-bg" id="privacyModalBg">
+        <div class="privacy-modal">
+          <span class="close" id="closePrivacyModal">&times;</span>
+          <h2 style="margin-top:0">🛡️ Política de Privacidad</h2>
+          <p class="date"><strong>Última actualización:</strong> 13 de octubre de 2025</p>
+          <div class="highlight" style="background:#f0f4ff;padding:16px;border-radius:8px;border-left:4px solid #bc7f27;margin:16px 0;">
+            <strong>Resumen:</strong> LegalClaro solo procesa el texto que seleccionas manualmente. No almacenamos historial, no accedemos a páginas completas y no recopilamos datos personales.
+          </div>
+          <h3>📊 Información que recopilamos</h3>
+          <ul>
+            <li><strong>Texto seleccionado:</strong> Solo el texto que el usuario selecciona manualmente en una página web para análisis</li>
+            <li><strong>Datos técnicos:</strong> Información básica del navegador para compatibilidad del servicio</li>
+          </ul>
+          <h3>❌ Datos que NO recopilamos</h3>
+          <ul>
+            <li>No accedemos al contenido completo de las páginas web</li>
+            <li>No almacenamos historial de textos analizados</li>
+            <li>No recopilamos información personal identificable</li>
+            <li>No accedemos a cookies o datos de navegación</li>
+            <li>No monitoreamos la actividad del usuario</li>
+          </ul>
+          <h3>🔧 Cómo usamos la información</h3>
+          <ul>
+            <li>El texto seleccionado se envía a nuestros servidores para análisis con IA</li>
+            <li>Utilizamos Google Gemini API para generar explicaciones simplificadas</li>
+            <li>El procesamiento es inmediato y no se almacena permanentemente</li>
+          </ul>
+          <h3>Mejoras del servicio</h3>
+          <ul>
+            <li>Datos agregados y anónimos pueden usarse para mejorar la calidad del análisis</li>
+            <li>No se vincula ningún análisis específico con usuarios individuales</li>
+          </ul>
+          <h3>🤝 Compartir información</h3>
+          <ul>
+            <li><strong>No vendemos</strong> datos de usuarios a terceros</li>
+            <li><strong>No compartimos</strong> textos analizados con otras empresas</li>
+            <li>Los datos se procesan únicamente con Google Gemini API según sus términos de servicio</li>
+            <li>Podemos compartir información si es requerido por ley</li>
+          </ul>
+          <h3>🔒 Seguridad de datos</h3>
+          <ul>
+            <li>Todas las comunicaciones usan encriptación HTTPS</li>
+            <li>Los servidores están hospedados en Vercel con medidas de seguridad estándar</li>
+            <li>No almacenamos credenciales ni información sensible del usuario</li>
+          </ul>
+          <h3>⏰ Retención de datos</h3>
+          <ul>
+            <li>Los textos enviados para análisis no se almacenan permanentemente</li>
+            <li>Los logs técnicos se mantienen por máximo 30 días para diagnóstico</li>
+            <li>No creamos perfiles de usuario ni bases de datos persistentes</li>
+          </ul>
+          <h3>👤 Derechos del usuario</h3>
+          <p>Los usuarios tienen derecho a:</p>
+          <ul>
+            <li>Dejar de usar la extensión en cualquier momento</li>
+            <li>Solicitar información sobre el procesamiento de sus datos</li>
+            <li>Reportar problemas de privacidad</li>
+          </ul>
+          <h3>🔄 Cambios en esta política</h3>
+          <ul>
+            <li>Las actualizaciones se publicarán en esta página</li>
+            <li>Los cambios significativos se notificarán mediante actualización de la extensión</li>
+            <li>El uso continuado implica aceptación de cambios</li>
+          </ul>
+          <h3>📧 Contacto</h3>
+          <ul>
+            <li><strong>GitHub:</strong> <a href="https://github.com/diegogalmarini/LegalClaro" target="_blank">https://github.com/diegogalmarini/LegalClaro</a></li>
+            <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/diegogalmarini/" target="_blank">https://www.linkedin.com/in/diegogalmarini/</a></li>
+          </ul>
+          <h3>🔗 Servicios de terceros</h3>
+          <ul>
+            <li>Procesamos texto usando Google Gemini para análisis de IA</li>
+            <li>Sujeto a la política de privacidad de Google AI</li>
+            <li>Más información: <a href="https://ai.google.dev/terms" target="_blank">https://ai.google.dev/terms</a></li>
+          </ul>
+          <div class="highlight" style="background:#f0f4ff;padding:16px;border-radius:8px;border-left:4px solid #bc7f27;margin:16px 0;">
+            Esta política de privacidad es efectiva a partir de la fecha de última actualización mencionada arriba.
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+      // Modal de política de privacidad
+      const privacyLink = document.getElementById('privacyLink');
+      const privacyModalBg = document.getElementById('privacyModalBg');
+      const closePrivacyModal = document.getElementById('closePrivacyModal');
+      privacyLink.addEventListener('click', () => {
+        privacyModalBg.classList.add('active');
+      });
+      closePrivacyModal.addEventListener('click', () => {
+        privacyModalBg.classList.remove('active');
+      });
+      privacyModalBg.addEventListener('click', (e) => {
+        if (e.target === privacyModalBg) privacyModalBg.classList.remove('active');
+      });
+      const btn = document.getElementById('send');
+      const txt = document.getElementById('text');
+      const out = document.getElementById('output');
+      const statusEl = document.getElementById('status');
+      const infoBtn = document.getElementById('infoBtn');
+      const modalBg = document.getElementById('modalBg');
+      const closeModal = document.getElementById('closeModal');
+
+      async function callApi() {
+        const text = txt.value.trim();
+        if (!text) { alert('Ingresa un texto.'); return; }
+        btn.disabled = true; statusEl.textContent = 'Estado: procesando...'; out.textContent = '';
+        try {
+          const res = await fetch('/api/simplify', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text })
+          });
+          const data = await res.json().catch(() => ({}));
+          statusEl.textContent = 'Estado: ' + res.status;
+          if (res.ok) {
+            const textOut = data.simplifiedText || (typeof data === 'string' ? data : JSON.stringify(data, null, 2));
+            out.innerHTML = renderMarkdown(textOut);
+          } else {
+            out.textContent = 'Error: ' + (data.error || res.statusText);
+          }
+        } catch (e) {
+          statusEl.textContent = 'Estado: error de red'; out.textContent = e.message;
+        } finally { btn.disabled = false; }
+      }
+      btn.addEventListener('click', callApi);
+
+      // Renderizador Markdown básico y seguro para evitar asteriscos en el resultado
+      function renderMarkdown(src) {
+        // Escape básico HTML
+        const escape = s => s
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+
+        const lines = escape(src).split(/\r?\n/);
+        let html = '';
+        let inUL = false, inOL = false;
+        const closeLists = () => {
+          if (inUL) { html += '</ul>'; inUL = false; }
+          if (inOL) { html += '</ol>'; inOL = false; }
+        };
+
+        for (let raw of lines) {
+          let line = raw.trimEnd();
+          if (!line.trim()) { closeLists(); html += '<p></p>'; continue; }
+
+          // Bold **text**
+          line = line.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+          // Ordered list: 1. 2. ...
+          if (/^\d+\.\s+/.test(line)) {
+            if (!inOL) { closeLists(); html += '<ol>'; inOL = true; }
+            html += '<li>' + line.replace(/^\d+\.\s+/, '') + '</li>';
+            continue;
+          }
+
+          // Unordered list: -, *, •
+          if (/^(?:[-*•])\s+/.test(line)) {
+            if (!inUL) { closeLists(); html += '<ul>'; inUL = true; }
+            html += '<li>' + line.replace(/^(?:[-*•])\s+/, '') + '</li>';
+            continue;
+          }
+
+          // Regular paragraph
+          closeLists();
+          html += '<p>' + line + '</p>';
+        }
+        closeLists();
+        return html;
+      }
+
+      infoBtn.addEventListener('click', () => {
+        modalBg.classList.add('active');
+      });
+      closeModal.addEventListener('click', () => {
+        modalBg.classList.remove('active');
+      });
+      modalBg.addEventListener('click', (e) => {
+        if (e.target === modalBg) modalBg.classList.remove('active');
+      });
+    </script>
+  </body>
+  </html>
