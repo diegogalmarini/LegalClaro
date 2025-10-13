@@ -4,35 +4,63 @@
   box-sizing: border-box;
 }
 
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   width: 400px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: #333;
+  min-height: 340px;
+  background: linear-gradient(135deg, #e8eafc 0%, #f7f8fd 100%);
+  color: #232323;
 }
 
-.container {
+.glass-container {
   display: flex;
   flex-direction: column;
-  min-height: 300px;
-  background: white;
+  min-height: 320px;
+  background: rgba(255,255,255,0.65);
+  border-radius: 18px;
+  margin: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+  backdrop-filter: blur(12px) saturate(1.2);
+  border: 1.5px solid rgba(220,220,240,0.25);
+  overflow: hidden;
+}
+
+.glass-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(120deg, #f7f8fd 0%, #e8eafc 100%);
+  color: #bc7f27;
+  padding: 18px 20px 14px 20px;
+  border-bottom: 1px solid #ececf3;
+  box-shadow: 0 2px 12px rgba(188,127,39,0.04);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+.icon-balance {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(255,255,255,0.7);
   border-radius: 8px;
-  margin: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(188,127,39,0.07);
+  margin-right: 6px;
+}
+.brand-title {
+  color: #1f2a55;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: .2px;
 }
 
-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 20px;
-  text-align: center;
-  border-radius: 8px 8px 0 0;
-}
-
-h1 {
-  font-size: 24px;
-  font-weight: 600;
-  margin: 0;
+.glass-main {
+  flex: 1;
+  padding: 22px 18px 10px 18px;
+  min-height: 180px;
 }
 
 main {
@@ -41,34 +69,48 @@ main {
   min-height: 200px;
 }
 
+
 .result {
   line-height: 1.6;
-  color: #444;
+  color: #232323;
+  background: rgba(255,255,255,0.7);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(31,42,85,0.04);
+  padding: 18px 12px;
+  margin-bottom: 10px;
+  min-height: 60px;
 }
+
 
 .initial-message {
-  color: #999;
+  color: #9ca3af;
   font-style: italic;
   text-align: center;
-  padding: 40px 20px;
+  padding: 36px 10px;
+  font-size: 15px;
 }
 
+
 .selected-text {
-  background: #f7f7f7;
+  background: rgba(248,249,255,0.85);
   padding: 10px;
-  border-radius: 4px;
+  border-radius: 7px;
   margin-bottom: 15px;
-  font-size: 12px;
-  color: #666;
-  border-left: 3px solid #667eea;
+  font-size: 13px;
+  color: #3b3b3b;
+  border-left: 3px solid #bc7f27;
+  box-shadow: 0 1px 4px rgba(188,127,39,0.04);
 }
+
 
 .simplified-text {
   font-size: 14px;
+  color: #232323;
 }
 
+
 .simplified-text h3 {
-  color: #667eea;
+  color: #bc7f27;
   margin-top: 15px;
   margin-bottom: 8px;
   font-size: 16px;
@@ -107,19 +149,21 @@ main {
   color: #721c24;
 }
 
+
 .spinner {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
+  padding: 36px 10px;
 }
 
+
 .spinner-icon {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border: 4px solid #f3f3f3;
-  border-top: 4px solid #667eea;
+  border-top: 4px solid #bc7f27;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -139,18 +183,28 @@ main {
   display: none !important;
 }
 
-footer {
-  background: #f7f7f7;
-  padding: 12px;
-  text-align: center;
-  border-radius: 0 0 8px 8px;
-  border-top: 1px solid #eee;
-}
 
-footer p {
+.glass-footer {
+  background: rgba(255,255,255,0.7);
+  padding: 10px 0 8px 0;
+  text-align: center;
+  border-radius: 0 0 18px 18px;
+  border-top: 1px solid #ececf3;
   font-size: 12px;
-  color: #666;
+  color: #9ca3af;
+  font-weight: 500;
+  letter-spacing: .1px;
 }
+.footer-text {
+  color: #9ca3af;
+}
+.footer-link{
+  display:inline-block;
+  margin-left:8px;
+  color:#bc7f27;
+  text-decoration:underline;
+}
+.footer-link:hover{ text-decoration:none; color:#a86a1c; }
 
 .error {
   background: #f8d7da;
