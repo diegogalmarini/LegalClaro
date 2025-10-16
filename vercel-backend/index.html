@@ -34,6 +34,63 @@
       .brand { display:inline-flex; align-items:center; gap:10px; color:#fff; }
       .brand .icon { color: var(--gold); }
       main { max-width: 880px; margin: 24px auto; padding: 0 16px; }
+      
+      /* Botones de acción principales */
+      .action-buttons {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 13.5px;
+        cursor: pointer;
+        transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+        border: none;
+        letter-spacing: .1px;
+      }
+      .action-btn svg {
+        flex-shrink: 0;
+        width: 18px;
+        height: 18px;
+      }
+      .action-btn-extension {
+        background: linear-gradient(180deg, #bc7f27 0%, #a86a1c 100%);
+        color: #fff;
+        box-shadow:
+          0 8px 20px rgba(188,127,39,.22),
+          0 2px 4px rgba(0,0,0,.08),
+          inset 0 1px 0 rgba(255,255,255,.15);
+        text-decoration: none;
+      }
+      .action-btn-extension:hover {
+        transform: translateY(-1px);
+        filter: brightness(1.05);
+        box-shadow:
+          0 12px 28px rgba(188,127,39,.32),
+          0 6px 12px rgba(0,0,0,.12),
+          inset 0 1px 0 rgba(255,255,255,.2);
+        text-decoration: none;
+      }
+      .action-btn-info {
+        background: #fff;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+        box-shadow: 0 4px 12px rgba(31,42,85,.1);
+      }
+      .action-btn-info:hover {
+        transform: translateY(-1px);
+        background: #f5f7ff;
+        box-shadow: 0 8px 20px rgba(31,42,85,.18);
+      }
+      
   .card { background:#fff; border:1px solid #e6e8ef; border-radius:14px; padding:18px; box-shadow: 0 6px 28px rgba(0,0,0,.05); }
       label { display:block; font-weight:600; margin-bottom:8px; }
       textarea { width:100%; min-height:160px; resize:vertical; padding:12px; border:1px solid #d1d5db; border-radius:8px; font:inherit; }
@@ -197,6 +254,27 @@
         color: #232323;
         font-size: 15px;
         position: relative;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+      /* Modal más ancho para "Cómo funciona" y "Extensión" */
+      #howItWorksModalBg .modal,
+      #extensionModalBg .modal {
+        max-width: 680px;
+        width: 90%;
+      }
+      @media (max-width: 768px) {
+        .modal {
+          max-width: 90%;
+          width: 90%;
+          padding: 20px 16px;
+          font-size: 14px;
+        }
+        #howItWorksModalBg .modal,
+        #extensionModalBg .modal {
+          max-width: 95%;
+          width: 95%;
+        }
       }
       .modal .close {
         position: absolute;
@@ -226,6 +304,26 @@
       <p class="subtitle">Simplifica textos legales en segundos</p>
     </header>
     <main>
+      <!-- Botones de acción principales -->
+      <div class="action-buttons">
+        <a class="action-btn action-btn-extension" href="https://chromewebstore.google.com/detail/ehalhckehijfccndeikdaigchcphookk?utm_source=item-share-cb" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+          Descargar Extensión de Chrome
+        </a>
+        <button class="action-btn action-btn-info" id="howItWorksBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+          ¿Cómo funciona?
+        </button>
+      </div>
+      
       <div class="card">
         <div style="display:flex; align-items:center; gap:8px;">
           <label for="text" style="margin-bottom:0;">Texto legal a analizar</label>
@@ -255,6 +353,43 @@
           <span class="close" id="closeModal">&times;</span>
           <b>Información:</b>
           <p>El texto que cargues puede estar en cualquier idioma y el resultado será siempre en español. Utilizamos IA para simplificar y traducir textos legales complejos.</p>
+        </div>
+      </div>
+
+      <!-- Modal de Extensión de Chrome -->
+      <div class="modal-bg" id="extensionModalBg">
+        <div class="modal">
+          <span class="close" id="closeExtensionModal">&times;</span>
+          <h3 style="margin-top:0; color: var(--primary);">🚀 Extensión de Chrome</h3>
+          <p><strong>Simplifica textos legales desde cualquier página web</strong></p>
+          <ul style="text-align: left; line-height: 1.8;">
+            <li>📄 Selecciona cualquier texto legal en cualquier sitio web</li>
+            <li>⚡ Análisis instantáneo sin salir de la página</li>
+            <li>🔒 Totalmente privado y seguro</li>
+            <li>🎯 Ideal para lectura rápida de términos y condiciones, contratos, políticas</li>
+          </ul>
+          <p style="margin-top: 16px;"><strong>¿Por qué usar la extensión?</strong></p>
+          <p>Con la extensión no necesitas copiar y pegar. Selecciona el texto que quieres entender y obtén una explicación clara al instante, sin interrumpir tu navegación.</p>
+          <a href="https://github.com/diegogalmarini/LegalClaro" target="_blank" style="display:inline-block; margin-top:16px; padding:12px 24px; background: linear-gradient(180deg, #bc7f27 0%, #a86a1c 100%); color:#fff; text-decoration:none; border-radius:8px; font-weight:600;">
+            Ver en GitHub e Instalar
+          </a>
+        </div>
+      </div>
+
+      <!-- Modal de Cómo Funciona -->
+      <div class="modal-bg" id="howItWorksModalBg">
+        <div class="modal">
+          <span class="close" id="closeHowItWorksModal">&times;</span>
+          <h3 style="margin-top:0; color: var(--primary);">❓ ¿Cómo funciona LegalClaro?</h3>
+          <ol style="text-align: left; line-height: 1.8;">
+            <li><strong>Copia el texto legal:</strong> Puede ser un contrato, términos de servicio, política de privacidad, o cualquier documento legal.</li>
+            <li><strong>Pégalo en el cuadro de texto:</strong> Acepta cualquier idioma y cualquier extensión de texto.</li>
+            <li><strong>Haz clic en "Analizar con IA":</strong> Nuestra inteligencia artificial procesa el texto usando modelos avanzados de lenguaje.</li>
+            <li><strong>Recibe una explicación clara:</strong> Obtendrás un resumen en español, con un análisis de nivel de alerta (Bajo, Medio, Alto) y puntos clave destacados.</li>
+          </ol>
+          <p style="margin-top: 16px;"><strong>Tecnología:</strong></p>
+          <p>LegalClaro usa modelos de IA (como Google Gemini) para analizar y simplificar textos complejos. Todo el procesamiento es seguro y no almacenamos tus datos.</p>
+          <p style="margin-top: 16px;"><strong>Tip:</strong> Para textos muy largos o análisis más detallados, usa esta webapp. Para análisis rápidos mientras navegas, usa la extensión de Chrome.</p>
         </div>
       </div>
     </main>
@@ -451,6 +586,26 @@
       modalBg.addEventListener('click', (e) => {
         if (e.target === modalBg) modalBg.classList.remove('active');
       });
+
+
+      // Modal de Extensión de Chrome (ya no se usa, el botón es un enlace)
+
+      // Modal de Cómo Funciona
+      const howItWorksBtn = document.getElementById('howItWorksBtn');
+      const howItWorksModalBg = document.getElementById('howItWorksModalBg');
+      const closeHowItWorksModal = document.getElementById('closeHowItWorksModal');
+      if (howItWorksBtn && howItWorksModalBg && closeHowItWorksModal) {
+        howItWorksBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          howItWorksModalBg.classList.add('active');
+        });
+        closeHowItWorksModal.addEventListener('click', () => {
+          howItWorksModalBg.classList.remove('active');
+        });
+        howItWorksModalBg.addEventListener('click', (e) => {
+          if (e.target === howItWorksModalBg) howItWorksModalBg.classList.remove('active');
+        });
+      }
     </script>
   </body>
   </html>
