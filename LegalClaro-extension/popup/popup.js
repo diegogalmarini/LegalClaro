@@ -17,7 +17,7 @@ async function getSelectedText() {
     
     return results[0].result;
   } catch (error) {
-    console.error('Error al obtener texto seleccionado:', error);
+  // No mostrar error en consola, solo manejar en UI
     return '';
   }
 }
@@ -89,20 +89,24 @@ async function simplifyText(text) {
 // Función principal
 async function init() {
   const selectedText = await getSelectedText();
-  
-  if (!selectedText || selectedText.trim() === '') {
-    resultDiv.innerHTML = '<p class="initial-message">Selecciona un texto legal en la página...</p>';
+  // Si no se puede acceder al texto seleccionado (chrome://, error de permisos, etc)
+  if (selectedText === '' || selectedText === undefined) {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      const url = tabs[0]?.url || '';
+      if (url.startsWith('chrome://') || url.startsWith('chrome-extension://')) {
+        resultDiv.innerHTML = '<div class="error"><strong>No disponible en esta página.</strong><br>Por seguridad, Chrome no permite usar extensiones en páginas internas (chrome://, extensiones, configuración, etc).<br><br>Prueba en cualquier sitio web normal.</div>';
+      } else {
+        resultDiv.innerHTML = '<p class="initial-message">Selecciona un texto legal en la página...</p>';
+      }
+    });
     return;
   }
-  
   // Mostrar texto seleccionado y spinner
   resultDiv.innerHTML = showSelectedText(selectedText);
   showSpinner();
-  
   try {
     // Llamar al backend
     const simplifiedText = await simplifyText(selectedText);
-    
     // Ocultar spinner y mostrar resultado
     hideSpinner();
     resultDiv.innerHTML = showSelectedText(selectedText) + formatSimplifiedText(simplifiedText);
@@ -110,9 +114,7 @@ async function init() {
     hideSpinner();
     resultDiv.innerHTML = `
       <div class="error">
-        <strong>Error:</strong> No se pudo procesar el texto. Por favor, verifica que el backend esté configurado correctamente.
-        <br><br>
-        <small>${error.message}</small>
+        <strong>Error:</strong> No se pudo procesar el texto. Por favor, verifica que el backend esté configurado correctamente.<br><br><small>${error.message}</small>
       </div>
     `;
   }
@@ -120,3 +122,21 @@ async function init() {
 
 // Ejecutar al cargar el popup
 document.addEventListener('DOMContentLoaded', init);
+
+// Popover de información para visitar la web
+const infoBtn = document.getElementById('infoBadge');
+const infoPopover = document.getElementById('infoPopover');
+if (infoBtn && infoPopover) {
+  const hide = () => infoPopover.classList.add('hidden');
+  const toggle = (e) => {
+    e.stopPropagation();
+    infoPopover.classList.toggle('hidden');
+  };
+  infoBtn.addEventListener('click', toggle);
+  document.addEventListener('click', (e) => {
+    if (!infoPopover.classList.contains('hidden')) hide();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') hide();
+  });
+}
