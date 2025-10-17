@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "LegalClaro",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Simplifica textos legales complejos usando IA. Obtén análisis claros de contratos y documentos al instante.",
   "short_name": "LegalClaro",
   "author": "Diego Galmarini",
@@ -34,5 +34,6 @@
     "extension_pages": "script-src 'self'; object-src 'self'"
   },
   "minimum_chrome_version": "88",
-  "offline_enabled": false
+  "offline_enabled": false,
+  "privacy_policy": "https://legalclaro.vercel.app/privacy.html"
 }
