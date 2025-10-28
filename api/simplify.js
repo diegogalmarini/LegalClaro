@@ -37,9 +37,10 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'Error de configuración del servidor' });
     }
     
-    // Inicializar el cliente de Gemini
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+  // Inicializar el cliente de Gemini
+  const genAI = new GoogleGenerativeAI(apiKey);
+  const modelName = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
+  const model = genAI.getGenerativeModel({ model: modelName });
     
     // Crear el prompt para Gemini
     const prompt = `Eres 'LegalClaro', un asistente experto en derecho y comunicación que se especializa en traducir jerga legal compleja a un lenguaje claro, sencillo y fácilmente comprensible para una persona sin conocimientos legales.
@@ -67,16 +68,36 @@ ${text}
     });
     
   } catch (error) {
-    console.error('Error al procesar la solicitud:', error);
-    
-    // Manejar errores específicos de la API de Gemini
-    if (error.message?.includes('API key')) {
-      return res.status(500).json({ error: 'Error de autenticación con la API de IA' });
+    // Normalizar mensaje
+    const msg = (error && error.message) ? String(error.message) : String(error);
+
+    // Log lato servidor sin exponer secretos
+    console.error('Error al procesar la solicitud:', msg);
+
+    // Mapeo de errores comunes
+    const isRateLimit = /\b429\b|RATE_LIMIT_EXCEEDED|quota/i.test(msg);
+    const isAuth = /API key|PERMISSION_DENIED|UNAUTHENTICATED|invalid api key/i.test(msg);
+
+    if (isRateLimit) {
+      return res.status(429).json({
+        error: 'Límite de uso alcanzado. Intenta nuevamente en 1-2 minutos.',
+        code: 429,
+        details: msg
+      });
     }
-    
-    return res.status(500).json({ 
+
+    if (isAuth) {
+      return res.status(401).json({
+        error: 'Autenticación fallida con la API de IA. Verifica la clave GEMINI_API_KEY.',
+        code: 401,
+        details: msg
+      });
+    }
+
+    return res.status(500).json({
       error: 'Error al procesar el texto',
-      details: error.message 
+      code: 500,
+      details: msg
     });
   }
 }
