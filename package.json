@@ -1,0 +1,19 @@
+{
+  "name": "legalclaro-web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "LegalClaro webapp + serverless API",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo no-build",
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1"
+  },
+  "devDependencies": {
+    "vercel": "^37.0.0"
+  }
+}
